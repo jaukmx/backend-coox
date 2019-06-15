@@ -2,7 +2,7 @@
 
 class DB{
   private $dbHost="localhost";
-  private $dbUsername="root";
+  private $dbUsername="arturo";
   private $dbPassword="root";
   private $dbName="coox";
 
@@ -23,7 +23,7 @@ class DB{
 
   public function userLogin($username, $password)
   {
-    $stmt=$this->db_con->prepare("SELECT * FROM usuarios WHERE usuario=:username");
+    $stmt=$this->db_con->prepare("SELECT * FROM tutor WHERE correo=:username");
     $stmt->execute(array(":username"=>$username));
     $row=$stmt->fetch(PDO::FETCH_ASSOC);
     $count=$stmt->rowCount();
@@ -34,15 +34,15 @@ class DB{
     }
   }
 
-  public function registerUser($username, $userpassword, $useremail, $usercontact, $userregdate)
+  public function registerUser($username, $ape1, $ape2, $correo, $contra)
   {
-    $sql="INSERT into usuarios(usuario, contrasena, correo, usercontact, userregdate) VALUES (:username, :userpassword, :useremail, :usercontact, :userregdate)";
+    $sql="INSERT into tutor (nombre, apellido1, apellido2, correo, contrasena) VALUES (:nombre, :apellido1, :apelllido2, :correo , :contrasena)";
     $stmt=$this->db_con->prepare($sql);
-    $stmt->bindParam(":username", $username);
-    $stmt->bindParam(":userpassword", $userpassword);
-    $stmt->bindParam(":useremail", $useremail);
-    $stmt->bindParam(":usercontact", $usercontact);
-    $stmt->bindParam(":userregdate", $userregdate);
+    $stmt->bindParam(":nombre", $username);
+    $stmt->bindParam(":apellido1", $ape1);
+    $stmt->bindParam(":apelllido2", $ape2);
+    $stmt->bindParam(":correo", $correo);
+    $stmt->bindParam(":contrasena", $contra);
     $stmt->execute();
     $newId=$this->db_con->lastInsertId();
     return $newId;

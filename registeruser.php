@@ -4,10 +4,14 @@ include "config/db.php";
 
 $db= new DB();
 
+echo "antes if ";
 if(isset($_POST['registeruser']) && $_POST['registeruser']=="true"){
-  if(!empty($_POST['username']) && !empty($_POST['userpassword']) && !empty($_POST['useremail']) && !empty($_POST['usercontact'])){
-    $userregdate=date("Y-m-d H:i:s");
-    $result=$db->registerUser($_POST['username'], $_POST['userpassword'], $_POST['useremail'], $_POST['usercontact'], $userregdate);
+	echo "1 if ";
+  if(!empty($_POST['nombre']) && !empty($_POST['apellido1']) && !empty($_POST['apellido2']) 
+  	&& !empty($_POST['correo']) && !empty($_POST['contrasena']) )  {
+    echo "2 if ";
+    $result=$db->registerUser($_POST['nombre'], $_POST['apellido1'], $_POST['apellido2'], $_POST['correo'], $_POST['contrasena']);
+    echo "result  if ";
     if($result>0){
       echo "success";
     }else{
